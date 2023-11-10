@@ -1,15 +1,15 @@
 package pagamento;
 
 public class PagamentoPix implements I_Pagamento{
-    private double valorCompra; // Change from double valorCompra;
+    private double valorCompra;
     private double desconto;
     double valorComDesconto;
     public PagamentoPix(double valorCompra) {
-        this.valorCompra = valorCompra; // Update the class member variable
+        this.valorCompra = valorCompra; 
     }
     @Override
     public void processoPagamento(double valorCompra) {
-        this.desconto = this.valorCompra * 0.10; // Use the class member variable
+        this.desconto = this.valorCompra * 0.10; 
         this.valorComDesconto = this.valorCompra - desconto;
     }
     @Override
