@@ -10,8 +10,8 @@ import relatorio.*;
 public class Main {
     private static ArrayList<Produto> produtos = new ArrayList<>();
     
-    private static double totalVendasCaixaPag=0.0;
-    private static double totalVendasCaixa=0.0;
+    private static double totalVendasCaixaPag=0.0;// valor total caixa com desconto
+    private static double totalVendasCaixa=0.0;// valor total caixa sem desconto
     private static Scanner scan = new Scanner(System.in);
     public static void main(String[] args) {
         while (true) {
@@ -233,98 +233,54 @@ public class Main {
                         if (produtos.size() != 0){
                             System.out.println("Digite o nome do produto: ");
                             buscaProduto = scan.nextLine();
-                            for(Produto bProduto : produtos){
-                                if (bProduto instanceof Acessorio && bProduto.getNomeProduto().equals(buscaProduto)){
-                                    System.out.println("Dados a atualizar\n1- Nome do produto\n2- Descrição do produto\n3- Valor do produto\n0- Cancelar Operação\nOpção: ");
-                                    opcao = Integer.parseInt(scan.nextLine());
-                                    switch(opcao){
-                                        case 1: //1- Nome do produto
-                                            System.out.println("Novo nome do produto: ");
-                                            nomeProduto = scan.nextLine();
-                                            if(nomeProduto.length() == 0){
-                                                System.out.println("Digite um nome valido");
-                                                break;
-                                            }else{
-                                                bProduto.setNomeProduto(nomeProduto);
-                                                System.out.println("Nome atualizado com sucesso!");
-                                            }
-                                            break;
-                                        case 2://2- Descrição do produto
-                                            System.out.println("Descrição do produto: ");
-                                            categoriaProduto = scan.nextLine();
-                                            bProduto.setCategoriaProduto(categoriaProduto);
-                                            System.out.println("Descrição atualizada com sucesso!");
-                                            break;
-                                        case 3://3- Valor do Produto
-                                            validarInfo = false;
-                                            System.out.println("Valor do produto: ");
-                                            while (!validarInfo) {
-                                                try {
-                                                    valorProduto = Double.parseDouble(scan.nextLine());
-                                                    bProduto.setValorProduto(valorProduto);
-                                                    validarInfo = true;
-                                                    System.out.println("Valor atualizado com sucesso!");
+                            if(buscaProduto.length() != 0 ){
+                                for(Produto bProduto : produtos){
+                                    if (bProduto instanceof Acessorio && bProduto.getNomeProduto().equals(buscaProduto)){
+                                        System.out.println("Dados a atualizar\n1- Nome do produto\n2- Descrição do produto\n3- Valor do produto\n0- Cancelar Operação\nOpção: ");
+                                        opcao = Integer.parseInt(scan.nextLine());
+                                        switch(opcao){
+                                            case 1: //1- Nome do produto
+                                                System.out.println("Novo nome do produto: ");
+                                                nomeProduto = scan.nextLine();
+                                                if(nomeProduto.length() == 0){
+                                                    System.out.println("Digite um nome valido");
                                                     break;
-                                                } catch (NumberFormatException e) {
-                                                    System.out.println("Valor invalido! Insira um numero valido. ");
-                                                    System.out.print("Valor Produto: ");
+                                                }else{
+                                                    bProduto.setNomeProduto(nomeProduto);
+                                                    System.out.println("Nome atualizado com sucesso!");
                                                 }
-                                            }
-                                            break;
-                                        case 0://0- Cancelar Operação
-                                            sair = true;
-                                            break;
-                                        default:
-                                            System.out.println("Opcao Invalida!");
-                                            break;     
-                                    }
-                                }else if(bProduto instanceof Brinquedo && bProduto.getNomeProduto().equals(buscaProduto)){
-                                    System.out.println("Dados a atualizar\n1- Nome do produto\n2- Descrição do produto\n3- Valor do produto\n0- Cancelar Operação\nOpção: ");
-                                    opcao = Integer.parseInt(scan.nextLine());
-                                    switch(opcao){
-                                        case 1: //1- Nome do produto
-                                            System.out.println("Novo nome do produto: ");
-                                            nomeProduto = scan.nextLine();
-                                            if(nomeProduto.length() == 0){
-                                                System.out.println("Digite um nome valido");
                                                 break;
-                                            }else{
-                                                bProduto.setNomeProduto(nomeProduto);
-                                                System.out.println("Nome atualizado com sucesso!");
-                                            }
-                                            break;
-                                        case 2://2- Descrição do produto
-                                            System.out.println("Descrição do produto: ");
-                                            categoriaProduto = scan.nextLine();
-                                            bProduto.setCategoriaProduto(categoriaProduto);
-                                            System.out.println("Descrição atualizada com sucesso!");
-                                            break;
-                                        case 3:
-                                            validarInfo = false;
-                                            System.out.println("Valor do produto: ");
-                                            while (!validarInfo) {
-                                                try {
-                                                    valorProduto = Double.parseDouble(scan.nextLine());
-                                                    bProduto.setValorProduto(valorProduto);
-                                                    validarInfo = true;
-                                                    System.out.println("Valor atualizado com sucesso!");
-                                                    break;
-                                                } catch (NumberFormatException e) {
-                                                    System.out.println("Valor invalido! Insira um numero valido. ");
-                                                    System.out.print("Valor Produto: ");
+                                            case 2://2- Descrição do produto
+                                                System.out.println("Descrição do produto: ");
+                                                categoriaProduto = scan.nextLine();
+                                                bProduto.setCategoriaProduto(categoriaProduto);
+                                                System.out.println("Descrição atualizada com sucesso!");
+                                                break;
+                                            case 3://3- Valor do Produto
+                                                validarInfo = false;
+                                                System.out.println("Valor do produto: ");
+                                                while (!validarInfo) {
+                                                    try {
+                                                        valorProduto = Double.parseDouble(scan.nextLine());
+                                                        bProduto.setValorProduto(valorProduto);
+                                                        validarInfo = true;
+                                                        System.out.println("Valor atualizado com sucesso!");
+                                                        break;
+                                                    } catch (NumberFormatException e) {
+                                                        System.out.println("Valor invalido! Insira um numero valido. ");
+                                                        System.out.print("Valor Produto: ");
+                                                    }
                                                 }
-                                            }
-                                            break;
-                                        case 0://0- Cancelar Operação
-                                            sair = true;
-                                            break;
-                                        default:
-                                            System.out.println("Opcao Invalida!");
-                                            break;     
-                                    }
-                                }else if(bProduto instanceof Eletronico && bProduto.getNomeProduto().equals(buscaProduto)){
-                                    System.out.println("Dados a atualizar\n1- Nome do produto\n2- Descrição do produto\n3- Valor do produto\n0- Cancelar Operação\nOpção: ");
-                                    try{
+                                                break;
+                                            case 0://0- Cancelar Operação
+                                                sair = true;
+                                                break;
+                                            default:
+                                                System.out.println("Opcao Invalida!");
+                                                break;     
+                                        }
+                                    }else if(bProduto instanceof Brinquedo && bProduto.getNomeProduto().equals(buscaProduto)){
+                                        System.out.println("Dados a atualizar\n1- Nome do produto\n2- Descrição do produto\n3- Valor do produto\n0- Cancelar Operação\nOpção: ");
                                         opcao = Integer.parseInt(scan.nextLine());
                                         switch(opcao){
                                             case 1: //1- Nome do produto
@@ -367,12 +323,61 @@ public class Main {
                                                 System.out.println("Opcao Invalida!");
                                                 break;     
                                         }
-                                    }catch(NumberFormatException e){
-                                        System.err.println("Opcao Invalida!");
-                                    }   
+                                    }else if(bProduto instanceof Eletronico && bProduto.getNomeProduto().equals(buscaProduto)){
+                                        System.out.println("Dados a atualizar\n1- Nome do produto\n2- Descrição do produto\n3- Valor do produto\n0- Cancelar Operação\nOpção: ");
+                                        try{
+                                            opcao = Integer.parseInt(scan.nextLine());
+                                            switch(opcao){
+                                                case 1: //1- Nome do produto
+                                                    System.out.println("Novo nome do produto: ");
+                                                    nomeProduto = scan.nextLine();
+                                                    if(nomeProduto.length() == 0){
+                                                        System.out.println("Digite um nome valido");
+                                                        break;
+                                                    }else{
+                                                        bProduto.setNomeProduto(nomeProduto);
+                                                        System.out.println("Nome atualizado com sucesso!");
+                                                    }
+                                                    break;
+                                                case 2://2- Descrição do produto
+                                                    System.out.println("Descrição do produto: ");
+                                                    categoriaProduto = scan.nextLine();
+                                                    bProduto.setCategoriaProduto(categoriaProduto);
+                                                    System.out.println("Descrição atualizada com sucesso!");
+                                                    break;
+                                                case 3:
+                                                    validarInfo = false;
+                                                    System.out.println("Valor do produto: ");
+                                                    while (!validarInfo) {
+                                                        try {
+                                                            valorProduto = Double.parseDouble(scan.nextLine());
+                                                            bProduto.setValorProduto(valorProduto);
+                                                            validarInfo = true;
+                                                            System.out.println("Valor atualizado com sucesso!");
+                                                            break;
+                                                        } catch (NumberFormatException e) {
+                                                            System.out.println("Valor invalido! Insira um numero valido. ");
+                                                            System.out.print("Valor Produto: ");
+                                                        }
+                                                    }
+                                                    break;
+                                                case 0://0- Cancelar Operação
+                                                    sair = true;
+                                                    break;
+                                                default:
+                                                    System.out.println("Opcao Invalida!");
+                                                    break;     
+                                            }
+                                        }catch(NumberFormatException e){
+                                            System.err.println("Opcao Invalida!");
+                                        }   
+                                    }
+                                    else{
+                                        System.out.println("Produto não localizado! ");
+                                    }
                                 }
+                                break;
                             }
-                            break;
                         }
                         else{
                             System.out.println("Nenhum produto cadastrado!");
@@ -383,142 +388,146 @@ public class Main {
                         if(produtos.size() != 0){
                             System.out.println("Digite o nome do produto: ");
                             buscaProduto = scan.nextLine();
-                            for(Produto bProduto : produtos){
-                                if (bProduto instanceof Acessorio && bProduto.getNomeProduto().equals(buscaProduto)){
-                                    System.out.println("\nProduto: "+bProduto.getNomeProduto()+"\nQuantidade: "+bProduto.getQuantidadeProduto());
-                                    System.out.println("1- Adicionar quantia\n2- Modificar quantia\n0- Cancelar Operação\nOpção: ");
-                                    opcao = Integer.parseInt(scan.nextLine());
-                                    switch(opcao){
-                                        case 1: //1- Adicionar quantia
-                                            validarInfo = false;
-                                            System.out.println("Quantia a acrescentar: ");
-                                            while (!validarInfo) {
-                                                try {
-                                                    quantiaAdd = Integer.parseInt(scan.nextLine());
-                                                    bProduto.atualizarQuantidadeEstoque(quantiaAdd);
-                                                    validarInfo = true;
-                                                    System.out.println("Quantia Acrescentada com sucesso! ");
-                                                    break;
-                                                } catch (NumberFormatException e) {
-                                                    System.out.println("Valor invalido! Insira um numero valido. ");
-                                                    System.out.println("Quantia a acrescentar: ");
+                            if(buscaProduto.length() != 0){
+                                for(Produto bProduto : produtos){
+                                    if (bProduto instanceof Acessorio && bProduto.getNomeProduto().equals(buscaProduto)){
+                                        System.out.println("\nProduto: "+bProduto.getNomeProduto()+"\nQuantidade: "+bProduto.getQuantidadeProduto());
+                                        System.out.println("1- Adicionar quantia\n2- Modificar quantia\n0- Cancelar Operação\nOpção: ");
+                                        opcao = Integer.parseInt(scan.nextLine());
+                                        switch(opcao){
+                                            case 1: //1- Adicionar quantia
+                                                validarInfo = false;
+                                                System.out.println("Quantia a acrescentar: ");
+                                                while (!validarInfo) {
+                                                    try {
+                                                        quantiaAdd = Integer.parseInt(scan.nextLine());
+                                                        bProduto.atualizarQuantidadeEstoque(quantiaAdd);
+                                                        validarInfo = true;
+                                                        System.out.println("Quantia Acrescentada com sucesso! ");
+                                                        break;
+                                                    } catch (NumberFormatException e) {
+                                                        System.out.println("Valor invalido! Insira um numero valido. ");
+                                                        System.out.println("Quantia a acrescentar: ");
+                                                    }
                                                 }
-                                            }
-                                            break;
-                                        case 2://2- Modificar quantia
-                                            validarInfo = false;
-                                            System.out.println("Nova Quantidade: ");
-                                            while (!validarInfo) {
-                                                try {
-                                                    quantiaAdd = Integer.parseInt(scan.nextLine());
-                                                    bProduto.setQuantidadeProduto(quantiaAdd); 
-                                                    validarInfo = true;
-                                                    System.out.println("Quantia modificada com sucesso!");
-                                                    break;
-                                                } catch (NumberFormatException e) {
-                                                    System.out.println("Valor invalido! Insira um numero valido. ");
-                                                    System.out.println("Nova Quantidade: ");
+                                                break;
+                                            case 2://2- Modificar quantia
+                                                validarInfo = false;
+                                                System.out.println("Nova Quantidade: ");
+                                                while (!validarInfo) {
+                                                    try {
+                                                        quantiaAdd = Integer.parseInt(scan.nextLine());
+                                                        bProduto.setQuantidadeProduto(quantiaAdd); 
+                                                        validarInfo = true;
+                                                        System.out.println("Quantia modificada com sucesso!");
+                                                        break;
+                                                    } catch (NumberFormatException e) {
+                                                        System.out.println("Valor invalido! Insira um numero valido. ");
+                                                        System.out.println("Nova Quantidade: ");
+                                                    }
                                                 }
-                                            }
-                                            break;
-                                        case 0://0- Cancelar Operação
-                                            sair = true;
-                                            break;
-                                        default:
-                                            System.out.println("Opcao Invalida!");
-                                            break;     
-                                    }
-                                }else if(bProduto instanceof Brinquedo && bProduto.getNomeProduto().equals(buscaProduto)){
-                                    System.out.println("\nProduto: "+bProduto.getNomeProduto()+"\nQuantidade: "+bProduto.getQuantidadeProduto());
-                                    System.out.println("1- Adicionar quantia\n2- Modificar quantia\n0- Cancelar Operação\nOpção: ");
-                                    opcao = Integer.parseInt(scan.nextLine());
-                                    switch(opcao){
-                                        case 1: //1- Adicionar quantia
-                                            validarInfo = false;
-                                            System.out.println("Quantia a acrescentar: ");
-                                            while (!validarInfo) {
-                                                try {
-                                                    quantiaAdd = Integer.parseInt(scan.nextLine());
-                                                    bProduto.atualizarQuantidadeEstoque(quantiaAdd);
-                                                    validarInfo = true;
-                                                    System.out.println("Quantia Acrescentada com sucesso! ");
-                                                    break;
-                                                } catch (NumberFormatException e) {
-                                                    System.out.println("Valor invalido! Insira um numero valido. ");
-                                                    System.out.println("Quantia a acrescentar: ");
+                                                break;
+                                            case 0://0- Cancelar Operação
+                                                sair = true;
+                                                break;
+                                            default:
+                                                System.out.println("Opcao Invalida!");
+                                                break;     
+                                        }
+                                    }else if(bProduto instanceof Brinquedo && bProduto.getNomeProduto().equals(buscaProduto)){
+                                        System.out.println("\nProduto: "+bProduto.getNomeProduto()+"\nQuantidade: "+bProduto.getQuantidadeProduto());
+                                        System.out.println("1- Adicionar quantia\n2- Modificar quantia\n0- Cancelar Operação\nOpção: ");
+                                        opcao = Integer.parseInt(scan.nextLine());
+                                        switch(opcao){
+                                            case 1: //1- Adicionar quantia
+                                                validarInfo = false;
+                                                System.out.println("Quantia a acrescentar: ");
+                                                while (!validarInfo) {
+                                                    try {
+                                                        quantiaAdd = Integer.parseInt(scan.nextLine());
+                                                        bProduto.atualizarQuantidadeEstoque(quantiaAdd);
+                                                        validarInfo = true;
+                                                        System.out.println("Quantia Acrescentada com sucesso! ");
+                                                        break;
+                                                    } catch (NumberFormatException e) {
+                                                        System.out.println("Valor invalido! Insira um numero valido. ");
+                                                        System.out.println("Quantia a acrescentar: ");
+                                                    }
                                                 }
-                                            }
-                                            break;
-                                        case 2://2- Modificar quantia
-                                            validarInfo = false;
-                                            System.out.println("Nova Quantidade: ");
-                                            while (!validarInfo) {
-                                                try {
-                                                    quantiaAdd = Integer.parseInt(scan.nextLine());
-                                                    bProduto.setQuantidadeProduto(quantiaAdd); 
-                                                    System.out.println("Quantia modificada com sucesso!");
-                                                    validarInfo = true;
-                                                    break;
-                                                } catch (NumberFormatException e) {
-                                                    System.out.println("Valor invalido! Insira um numero valido. ");
-                                                    System.out.println("Nova Quantidade: ");
+                                                break;
+                                            case 2://2- Modificar quantia
+                                                validarInfo = false;
+                                                System.out.println("Nova Quantidade: ");
+                                                while (!validarInfo) {
+                                                    try {
+                                                        quantiaAdd = Integer.parseInt(scan.nextLine());
+                                                        bProduto.setQuantidadeProduto(quantiaAdd); 
+                                                        System.out.println("Quantia modificada com sucesso!");
+                                                        validarInfo = true;
+                                                        break;
+                                                    } catch (NumberFormatException e) {
+                                                        System.out.println("Valor invalido! Insira um numero valido. ");
+                                                        System.out.println("Nova Quantidade: ");
+                                                    }
                                                 }
-                                            }
-                                            break;
-                                        case 0://0- Cancelar Operação
-                                            sair = true;
-                                            break;
-                                        default:
-                                            System.out.println("Opcao Invalida!");
-                                            break;     
-                                    }
-                                }else if(bProduto instanceof Eletronico && bProduto.getNomeProduto().equals(buscaProduto)){
-                                    System.out.println("\nProduto: "+bProduto.getNomeProduto()+"\nQuantidade: "+bProduto.getQuantidadeProduto());
-                                    System.out.println("1- Adicionar quantia\n2- Modificar quantia\n0- Cancelar Operação\nOpção: ");
-                                    opcao = Integer.parseInt(scan.nextLine());
-                                    switch(opcao){
-                                        case 1: //1- Adicionar quantia
-                                            validarInfo = false;
-                                            System.out.println("Quantia a acrescentar: ");
-                                            while (!validarInfo) {
-                                                try {
-                                                    quantiaAdd = Integer.parseInt(scan.nextLine());
-                                                    bProduto.atualizarQuantidadeEstoque(quantiaAdd);
-                                                    validarInfo = true;
-                                                    System.out.println("Quantia Acrescentada com sucesso! ");
-                                                    break;
-                                                } catch (NumberFormatException e) {
-                                                    System.out.println("Valor invalido! Insira um numero valido. ");
-                                                    System.out.println("Quantia a acrescentar: ");
+                                                break;
+                                            case 0://0- Cancelar Operação
+                                                sair = true;
+                                                break;
+                                            default:
+                                                System.out.println("Opcao Invalida!");
+                                                break;     
+                                        }
+                                    }else if(bProduto instanceof Eletronico && bProduto.getNomeProduto().equals(buscaProduto)){
+                                        System.out.println("\nProduto: "+bProduto.getNomeProduto()+"\nQuantidade: "+bProduto.getQuantidadeProduto());
+                                        System.out.println("1- Adicionar quantia\n2- Modificar quantia\n0- Cancelar Operação\nOpção: ");
+                                        opcao = Integer.parseInt(scan.nextLine());
+                                        switch(opcao){
+                                            case 1: //1- Adicionar quantia
+                                                validarInfo = false;
+                                                System.out.println("Quantia a acrescentar: ");
+                                                while (!validarInfo) {
+                                                    try {
+                                                        quantiaAdd = Integer.parseInt(scan.nextLine());
+                                                        bProduto.atualizarQuantidadeEstoque(quantiaAdd);
+                                                        validarInfo = true;
+                                                        System.out.println("Quantia Acrescentada com sucesso! ");
+                                                        break;
+                                                    } catch (NumberFormatException e) {
+                                                        System.out.println("Valor invalido! Insira um numero valido. ");
+                                                        System.out.println("Quantia a acrescentar: ");
+                                                    }
                                                 }
-                                            }
-                                            break;
-                                        case 2://2- Modificar quantia
-                                            validarInfo = false;
-                                            System.out.println("Nova Quantidade: ");
-                                            while (!validarInfo) {
-                                                try {
-                                                    quantiaAdd = Integer.parseInt(scan.nextLine());
-                                                    bProduto.setQuantidadeProduto(quantiaAdd); 
-                                                    System.out.println("Quantia modificada com sucesso!");
-                                                    validarInfo = true;
-                                                    break;
-                                                } catch (NumberFormatException e) {
-                                                    System.out.println("Valor invalido! Insira um numero valido. ");
-                                                    System.out.println("Nova Quantidade: ");
+                                                break;
+                                            case 2://2- Modificar quantia
+                                                validarInfo = false;
+                                                System.out.println("Nova Quantidade: ");
+                                                while (!validarInfo) {
+                                                    try {
+                                                        quantiaAdd = Integer.parseInt(scan.nextLine());
+                                                        bProduto.setQuantidadeProduto(quantiaAdd); 
+                                                        System.out.println("Quantia modificada com sucesso!");
+                                                        validarInfo = true;
+                                                        break;
+                                                    } catch (NumberFormatException e) {
+                                                        System.out.println("Valor invalido! Insira um numero valido. ");
+                                                        System.out.println("Nova Quantidade: ");
+                                                    }
                                                 }
-                                            }
-                                            break;
-                                        case 0://0- Cancelar Operação
-                                            sair = true;
-                                            break;
-                                        default:
-                                            System.out.println("Opcao Invalida!");
-                                            break;     
-                                    }
-                                }else{System.out.println("Produto não localizado!");}
+                                                break;
+                                            case 0://0- Cancelar Operação
+                                                sair = true;
+                                                break;
+                                            default:
+                                                System.out.println("Opcao Invalida!");
+                                                break;     
+                                        }
+                                    }else{System.out.println("Produto não localizado!");}
+                                }
+                                break;
+                            }else{
+                                System.out.println("Nenhum produto Localizado!");
                             }
-                            break;
                         }else{
                             System.out.println("Nenhum produto Cadastrado!");
                         }
@@ -528,19 +537,25 @@ public class Main {
                         String removeProduto = scan.nextLine();
                         Iterator<Produto> iter = produtos.iterator();
                         if(produtos.size() == 0){
-                            System.out.println("Nenhum produto cadastrado!");
+                            System.out.println("Nenhum produto cadastrado!\n");
+                            break;
+                        }else if(removeProduto.length() == 0 ){
+                            System.out.println("Nenhum produto Localizado!\n");
                         }else{
                             while (iter.hasNext()) {
                                 Produto bProduto = iter.next();
                                 if (bProduto instanceof Eletronico && bProduto.getNomeProduto().equals(removeProduto)) {
                                     iter.remove(); // Remove o item usando o iterador 
+                                    System.out.println("Produto "+removeProduto+" removido com Sucesso!");
                                     sair = true;
                                     break;
                                 } else if (bProduto instanceof Brinquedo && bProduto.getNomeProduto().equals(removeProduto)) {
+                                    System.out.println("Produto "+removeProduto+" removido com Sucesso!");
                                     iter.remove(); // Remove o item usando o iterador
                                     sair = true;
                                     break;
                                 } else if (bProduto instanceof Acessorio && bProduto.getNomeProduto().equals(removeProduto)) {
+                                    System.out.println("Produto "+removeProduto+" removido com Sucesso!");
                                     iter.remove(); // Remove o item usando o iterador
                                     sair = true;
                                     break;
@@ -636,7 +651,7 @@ public class Main {
         } 
     }
 }
-//validar formas de pagamento 
+    //validar formas de pagamento 
     public static void formaPagamento(double valorCompra){
         boolean sair = false;
         int opcao;

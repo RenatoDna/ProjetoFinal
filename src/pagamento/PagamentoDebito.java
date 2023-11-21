@@ -11,6 +11,7 @@ public class PagamentoDebito implements I_Pagamento {
     public double getValorComDesconto() {
         return this.valorComDesconto;
     }
+    //processo de pagamento
     @Override
     public void processoPagamento(double valorCompra) {
         this.desconto = this.valorCompra * 0.05;

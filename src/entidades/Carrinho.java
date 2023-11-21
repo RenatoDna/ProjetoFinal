@@ -12,7 +12,7 @@ public class Carrinho {
                 return;
             }
         }
-        // Se não estiver, adicione um novo item
+        // Se não estiver, adiciona um novo item ao carrinho
         CarrinhoCompra newItem = new CarrinhoCompra(produto, quantidade);
         items.add(newItem);
     }

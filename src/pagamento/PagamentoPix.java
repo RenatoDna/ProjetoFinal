@@ -7,6 +7,7 @@ public class PagamentoPix implements I_Pagamento{
     public PagamentoPix(double valorCompra) {
         this.valorCompra = valorCompra; 
     }
+    //processo de pagamento
     @Override
     public void processoPagamento(double valorCompra) {
         this.desconto = this.valorCompra * 0.10; 
