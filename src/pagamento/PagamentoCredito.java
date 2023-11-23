@@ -10,7 +10,6 @@ public class PagamentoCredito implements I_Pagamento {
         this.valorCompra = valorCompra;
         this.parcelas = parcelas;
     }
-    //processo de pagamento
     @Override
     public void processoPagamento(double valorCompra) {
         valorCompraJuros = this.valorCompra;

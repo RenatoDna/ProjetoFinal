@@ -1,9 +1,14 @@
 package entidades;
+
 import java.util.ArrayList;
 import java.util.List;
+
+
 import produto.Produto;
 public class Carrinho {
     private List<CarrinhoCompra> items = new ArrayList<>();
+    
+
     public void adicionarItem(Produto produto, int quantidade) {
         // Verifique se o produto já está no carrinho
         for (CarrinhoCompra item : items) {
@@ -12,9 +17,13 @@ public class Carrinho {
                 return;
             }
         }
-        // Se não estiver, adiciona um novo item ao carrinho
+        // Se não estiver, adicione um novo item
         CarrinhoCompra newItem = new CarrinhoCompra(produto, quantidade);
         items.add(newItem);
+    }
+    // puxar os Itens vendidos
+    public List<CarrinhoCompra> getItensVendidos(){
+        return new ArrayList<>(items);
     }
     // Calcula o valor total do carrinho
     public double calcularTotal() {
@@ -22,6 +31,7 @@ public class Carrinho {
         for (CarrinhoCompra item : items) {
             total += item.getProduto().getValorProduto() * item.getQuantidade();
         }
+        
         return total;
     }
 }
