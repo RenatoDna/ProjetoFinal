@@ -8,7 +8,6 @@ import produto.Produto;
 public class Carrinho {
     private List<CarrinhoCompra> items = new ArrayList<>();
     
-
     public void adicionarItem(Produto produto, int quantidade) {
         // Verifique se o produto já está no carrinho
         for (CarrinhoCompra item : items) {
@@ -17,11 +16,11 @@ public class Carrinho {
                 return;
             }
         }
-        // Se não estiver, adicione um novo item
+        // Se não estiver, adicione um novo item ao carrinho
         CarrinhoCompra newItem = new CarrinhoCompra(produto, quantidade);
         items.add(newItem);
     }
-    // puxar os Itens vendidos
+    // puxar os Itens vendidos para o relatorio de caixa
     public List<CarrinhoCompra> getItensVendidos(){
         return new ArrayList<>(items);
     }

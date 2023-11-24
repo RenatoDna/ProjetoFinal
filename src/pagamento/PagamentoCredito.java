@@ -17,8 +17,10 @@ public class PagamentoCredito implements I_Pagamento {
         if (parcelas >= 3) {
             valorJuros = this.valorCompra * 0.03;
             valorCompraJuros += valorJuros;
+        }else{
+            this.valorComDesconto += valorCompraJuros;
         }
-        this.valorComDesconto += valorCompraJuros;
+        
     }
     @Override
     public double getValorComDesconto(){

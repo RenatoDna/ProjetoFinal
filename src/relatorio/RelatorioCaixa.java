@@ -1,20 +1,32 @@
 package relatorio;
-
+import java.util.ArrayList;
 import java.util.List;
+
+import entidades.Carrinho;
 import entidades.CarrinhoCompra;
 
-public class RelatorioCaixa implements I_Relatorio {
+public class RelatorioCaixa {
     private List<CarrinhoCompra> itensVendidos;
-    public RelatorioCaixa(List<CarrinhoCompra> itensVendidos){
-        this.itensVendidos = itensVendidos;
-
+    public RelatorioCaixa() {
+        this.itensVendidos = new ArrayList<>();
     }
-    @Override
-    public void relatorioGeral() {
-        System.out.println("\nRelatório de Caixa:");
+    public void adicionarItensDoCarrinho(Carrinho carrinho) {
+        itensVendidos.addAll(carrinho.getItensVendidos());
+    }
+    public double calcularTotal() {
+        double total = 0;
         for (CarrinhoCompra item : itensVendidos) {
-            System.out.printf("Nome do Produto: %s  Quantidade vendida em Caixa: %d\n",item.getProduto().getNomeProduto(),item.getQuantidade());
+            total += item.getProduto().getValorProduto() * item.getQuantidade();
+        }
+        return total;
+    }
+    // relatorio geral de caixa
+    public void gerarRelatorio() {
+        System.out.println("Relatório de Itens Vendidos:");
+        for (CarrinhoCompra item : itensVendidos) {
+            System.out.printf("Nome do Produto: %s  Quantidade vendida: %d  Valor produto individual R$ %.2f  Valor Total de vendas R$ %.2f\n",item.getProduto().getNomeProduto(), item.getQuantidade(), item.getProduto().getValorProduto(),(item.getProduto().getValorProduto() * item.getQuantidade()));
         }
         System.out.println();
     }
+    
 }

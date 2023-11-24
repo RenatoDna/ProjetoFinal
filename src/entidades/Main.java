@@ -12,9 +12,10 @@ public class Main {
     private static double totalVendasCaixaPag=0.0;
     private static double totalVendasCaixa=0.0;
     private static Scanner scan = new Scanner(System.in);
-    private static Carrinho carrinho = new Carrinho();
+    private static RelatorioCaixa relatorioCaixa = new RelatorioCaixa();
     public static void main(String[] args) {
         while (true) {
+            Carrinho carrinho = new Carrinho();
             System.out.println("Selecione uma opção:"
                                 +"\n1- Produto"
                                 +"\n2- Compras"
@@ -30,7 +31,7 @@ public class Main {
                         Main.compras(carrinho);
                         break;
                     case 3:// - Relatorios
-                        Main.relarotioGeral(produtos,carrinho);
+                        Main.relarotioGeral(produtos);
                         break;
                     case 0://Saindo do programa
                         System.exit(0);
@@ -43,7 +44,7 @@ public class Main {
             }
         }
     }
-    // cadastro de produtos 
+    // Cadastro de produtos 
     public static void cadastroProduto() {
         int opcao;
         String buscaProduto;
@@ -565,6 +566,7 @@ public class Main {
             }
         }
     }
+    // Compras 
     public static void compras(Carrinho carrinho){
     boolean validarInfo = false;
     int opcao;
@@ -616,6 +618,8 @@ public class Main {
                         Main.formaPagamento(totalCompra);
                         totalCompra = carrinho.calcularTotal();
                         totalVendasCaixa += totalCompra;
+                        // Adiciona todos itens vendidos ao relatorio de caixa
+                        relatorioCaixa.adicionarItensDoCarrinho(carrinho);
                         sair = true;
                     } else {
                         System.out.println("O carrinho está vazio. Adicione produtos antes de finalizar a compra.");
@@ -635,7 +639,7 @@ public class Main {
         } 
     }
 }
-//validar formas de pagamento 
+    //validar formas de pagamento 
     public static void formaPagamento(double valorCompra){
         boolean sair = false;
         int opcao;
@@ -673,14 +677,14 @@ public class Main {
                             System.out.println("Digite o numero de parcelas enntre 1 ate 6 vezes: \nParcelas:");
                             int parcelas = Integer.parseInt(scan.nextLine());
                             I_Pagamento pagamentoCredito= new PagamentoCredito(valorCompra,parcelas);
-                            if(parcelas > 0 && parcelas < 6){
+                            if(parcelas > 0 && parcelas <= 6){
                                 // Processando o pagamento com cartão de crédito
                                 pagamentoCredito.processoPagamento(valorCompra);
                                 totalVendasCaixaPag += pagamentoCredito.getValorComDesconto();
                                 System.out.println(pagamentoCredito.toString());
                                 sair = true;
                                 break;
-                            }  
+                            }else{System.out.println("Parcela indisponivel\n");}
                         }catch (NumberFormatException e) {
                             System.err.println("Por favor, insira um número válido.");
                         }
@@ -702,8 +706,8 @@ public class Main {
             }
         }
     }
-    //relatorio geral do estoque - quantia ate o momento 
-    public static void relarotioGeral(ArrayList<Produto> produtos,Carrinho carrinho) {
+    //relatorio geral do estoque - quantia ate o momento e relatorio parcial de caixa e total de itens vendidos
+    public static void relarotioGeral(ArrayList<Produto> produtos) {
         int opcao;
         boolean sair = false;
         try {
@@ -712,15 +716,16 @@ public class Main {
                 opcao = Integer.parseInt(scan.nextLine());
                 switch (opcao) {
                     case 1: // Relatório Caixa Parcial
+                        System.out.println("Relatorio de Caixa:\n");
                         Main.relatorioCaixaValor();
                         break;
                     case 2: // Relatório Estoque
                         I_Relatorio relatorioEstoque = new RelatorioEstoque(produtos);
                         relatorioEstoque.relatorioGeral();
                         break;
-                    case 3: 
-                        I_Relatorio relatorioCaixa = new RelatorioCaixa(carrinho.getItensVendidos());
-                        relatorioCaixa.relatorioGeral();
+                    case 3: // Relatorio completo de caixa
+                        relatorioCaixa.gerarRelatorio();
+                        Main.relatorioCaixaValor();
                         break;
                     case 0:
                         sair = true;
@@ -735,6 +740,6 @@ public class Main {
     }
     // relatorio quantia valor vendido com e sem desconto
     public static void relatorioCaixaValor(){
-        System.out.printf("Relatorio de Caixa\nTotal de Venda Com Desconto: %.2f \nTotal de Venda Bruto sem descontos aplicados: %.2f \nValor total desconto aplicado: %.2f\n",totalVendasCaixaPag,totalVendasCaixa,(totalVendasCaixa-totalVendasCaixaPag));
+        System.out.printf("Total de Venda Com Desconto: %.2f \nTotal de Venda Bruto sem descontos aplicados: %.2f \nValor total desconto aplicado: %.2f\n\n",totalVendasCaixaPag,totalVendasCaixa,(totalVendasCaixa-totalVendasCaixaPag));
     }
 }
