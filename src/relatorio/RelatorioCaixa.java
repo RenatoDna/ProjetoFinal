@@ -2,8 +2,8 @@ package relatorio;
 import java.util.ArrayList;
 import java.util.List;
 
-import entidades.Carrinho;
-import entidades.CarrinhoCompra;
+import compra.Carrinho;
+import compra.CarrinhoCompra;
 
 public class RelatorioCaixa {
     private List<CarrinhoCompra> itensVendidos;

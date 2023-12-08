@@ -1,6 +1,6 @@
 package produto;
 
-import entidades.TryPersonalizadoException;
+import tratamento.TryPersonalizadoException;
 
 public class Brinquedo extends Produto {
     int idadeRecomentdada;
